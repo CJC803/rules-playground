@@ -1,1 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feature Flag Rules Playground</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div>
+          <h1>Feature Flag Rules Playground</h1>
+          <p class="subtle">
+            Change inputs to see the decision, reason, and rule id (first-match wins).
+          </p>
+        </div>
+        <div class="chip">Vite + Vanilla TS</div>
+      </header>
 
+      <main class="layout">
+        <!-- Inputs (left) -->
+        <section class="panel">
+          <h2>Inputs</h2>
+
+          <div class="field">
+            <label for="role">Role</label>
+            <select id="role">
+              <option value="General">General</option>
+              <option value="Support">Support</option>
+              <option value="PPM">PPM</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="center">Center</label>
+            <input id="center" type="text" value="CLT-01" autocomplete="off" />
+          </div>
+
+          <div class="field">
+            <label for="dayType">Day Type</label>
+            <select id="dayType">
+              <option value="Normal">Normal</option>
+              <option value="SOD">SOD</option>
+              <option value="Holiday">Holiday</option>
+              <option value="Weather">Weather</option>
+            </select>
+          </div>
+
+          <div class="field row">
+            <label class="inline" for="automationConnected">Automation Connected</label>
+            <label class="switch">
+              <input id="automationConnected" type="checkbox" checked />
+              <span class="slider" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3>Flags</h3>
+
+          <div class="checks">
+            <label class="check">
+              <input id="taggedAnomaly" type="checkbox" />
+              <span>taggedAnomaly</span>
+            </label>
+
+            <label class="check">
+              <input id="sodTagged" type="checkbox" />
+              <span>sodTagged</span>
+            </label>
+
+            <label class="check">
+              <input id="weatherPlaybookReady" type="checkbox" />
+              <span>weatherPlaybookReady</span>
+            </label>
+
+            <label class="check">
+              <input id="forceEnable" type="checkbox" />
+              <span>forceEnable</span>
+            </label>
+
+            <label class="check">
+              <input id="writeAccess" type="checkbox" />
+              <span>writeAccess</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Output (right) -->
+        <section class="panel">
+          <h2>Decision</h2>
+
+          <div class="decision">
+            <div id="statusBadge" class="badge disabled">DISABLED</div>
+
+            <div class="kv">
+              <div class="k">Reason</div>
+              <div id="reason" class="v">—</div>
+            </div>
+
+            <div class="kv">
+              <div class="k">Rule ID</div>
+              <div id="ruleId" class="v mono">—</div>
+            </div>
+
+            <button id="copyBtn" class="btn" type="button">Copy decision summary</button>
+            <div id="copyToast" class="toast" aria-live="polite" aria-atomic="true"></div>
+          </div>
+        </section>
+      </main>
+
+      <!-- JSON preview (bottom) -->
+      <section class="panel bottom">
+        <h2>Context JSON</h2>
+        <pre id="jsonPreview" class="pre"></pre>
+      </section>
+
+      <footer class="footer subtle">
+        First matching rule wins. Fallback rule applies when nothing blocks.
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
